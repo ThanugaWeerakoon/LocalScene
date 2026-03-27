@@ -1,12 +1,11 @@
 import { useState, useRef } from "react";
 
 const IMAGES = [
-  "https://images.unsplash.com/photo-1534809027769-b00d750a6bac?w=600&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=600&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=600&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1490750967868-88df5691cc8e?w=600&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=600&h=900&fit=crop",
 ];
 
 export default function Carousel({ images = IMAGES }) {
@@ -18,10 +17,9 @@ export default function Carousel({ images = IMAGES }) {
   const next = () => setCurrent((c) => (c + 1) % total);
 
   return (
-    <div style={s.root}>
-      {/* Track */}
+    <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
       <div
-        style={s.track}
+        className="relative w-[420px] h-[520px]"
         onTouchStart={(e) => (touchStart.current = e.touches[0].clientX)}
         onTouchEnd={(e) => {
           const diff = e.changedTouches[0].clientX - touchStart.current;
@@ -40,33 +38,51 @@ export default function Carousel({ images = IMAGES }) {
               key={i}
               src={src}
               alt=""
+              onClick={() => abs !== 0 && setCurrent(i)}
+              className="absolute top-0 left-0 w-full h-full object-cover cursor-pointer transition-all duration-500"
               style={{
-                ...s.slide,
-                transform: `translateX(${pos * 105}%) scale(${abs === 0 ? 1 : abs === 1 ? 0.82 : 0.66})`,
+                borderRadius: "42px",
+                transform: `translateX(${pos * 280}px) scale(${
+                  abs === 0 ? 1 : abs === 1 ? 0.8 : 0.65
+                })`,
                 zIndex: abs === 0 ? 3 : abs === 1 ? 2 : 1,
                 opacity: abs === 0 ? 1 : abs === 1 ? 0.6 : 0.3,
-                filter: abs === 0 ? "none" : `brightness(${abs === 1 ? 0.6 : 0.4})`,
+                filter: abs === 0 ? "none" : `brightness(${abs === 1 ? 0.7 : 0.5})`,
+                boxShadow: abs === 0 ? "0 32px 64px rgba(0,0,0,0.25)" : "none",
               }}
-              onClick={() => abs !== 0 && setCurrent(i)}
             />
           );
         })}
       </div>
 
       {/* Arrows */}
-      <button style={{ ...s.arrow, left: 16 }} onClick={prev}>&#8249;</button>
-      <button style={{ ...s.arrow, right: 16 }} onClick={next}>&#8250;</button>
+      <button
+        onClick={prev}
+        className="absolute left-4 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center hover:bg-white/30 transition"
+        style={{ fontSize: 20 }}
+      >
+        &#8249;
+      </button>
+      <button
+        onClick={next}
+        className="absolute right-4 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center hover:bg-white/30 transition"
+        style={{ fontSize: 20 }}
+      >
+        &#8250;
+      </button>
 
       {/* Dots */}
-      <div style={s.dots}>
+      <div className="absolute bottom-4 flex gap-2 z-10">
         {images.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
+            className="transition-all duration-200 rounded-full border-none"
             style={{
-              ...s.dot,
-              background: i === current ? "#fff" : "rgba(255,255,255,0.35)",
-              transform: i === current ? "scale(1.3)" : "scale(1)",
+              width: i === current ? 20 : 6,
+              height: 6,
+              background: i === current ? "#fff" : "rgba(255,255,255,0.4)",
+              padding: 0,
             }}
           />
         ))}
@@ -74,71 +90,3 @@ export default function Carousel({ images = IMAGES }) {
     </div>
   );
 }
-
-const s = {
-  root: {
-    position: "relative",
-    width: "100%",
-    height: 360,
-    background: "#0a0a0a",
-    borderRadius: 12,
-    overflow: "hidden",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    userSelect: "none",
-  },
-  track: {
-    position: "relative",
-    width: "55%",
-    height: "72%",
-  },
-  slide: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    borderRadius: 10,
-    cursor: "pointer",
-    transition: "all 0.45s cubic-bezier(0.25, 1, 0.5, 1)",
-    top: 0,
-    left: 0,
-  },
-  arrow: {
-    position: "absolute",
-    top: "50%",
-    transform: "translateY(-50%)",
-    background: "rgba(255,255,255,0.1)",
-    border: "1px solid rgba(255,255,255,0.2)",
-    color: "#fff",
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    fontSize: 22,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 10,
-    backdropFilter: "blur(4px)",
-    transition: "background 0.2s",
-  },
-  dots: {
-    position: "absolute",
-    bottom: 14,
-    left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    gap: 6,
-    zIndex: 10,
-  },
-  dot: {
-    width: 6,
-    height: 6,
-    borderRadius: "50%",
-    border: "none",
-    cursor: "pointer",
-    padding: 0,
-    transition: "all 0.2s",
-  },
-};
