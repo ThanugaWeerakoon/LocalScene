@@ -2,6 +2,7 @@ import '../../src/index.css'
 import { useState } from "react";
 import { SearchIcon } from "lucide-react";
 import Navbar from '../../components/Navbar';
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -43,6 +44,7 @@ export default function Home() {
           </div>
 
         </div>
+        
       </div>
 
       {/* Navbar*/}
