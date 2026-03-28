@@ -84,7 +84,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center px-6 pt-16 pb-8 gap-4">
+      <section className="flex flex-col items-center justify-center text-center px-6 pt-5 pb-8 gap-4">
         <div
           className="text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full"
           style={{
@@ -117,7 +117,7 @@ export default function Home() {
       </section>
 
       {/* Section Label */}
-      <div className="px-10 pt-4 pb-2 flex items-center justify-between">
+      <div className="pb-5 flex items-center justify-center">
         <span
           className="text-xl font-bold tracking-widest uppercase"
           style={{ color: "rgba(255,231,215,0.35)" }}
