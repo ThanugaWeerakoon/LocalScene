@@ -69,27 +69,62 @@ export default function Artists() {
       </div>
 
      
+{/* LEFT SIDE CARDS */}
+<div className="absolute left-10 top-2/3 -translate-y-1/2 max-w-sm w-[90%] flex flex-col gap-5">
 
-      {/* Page content */}
-      <div className="flex-1 bg-black" />
+  {/* Card 1 */}
+  <div
+    className="rounded-2xl p-6 shadow-2xl"
+    style={{
+      background: "rgba(255,255,255,0.06)",
+      backdropFilter: "blur(20px)",
+      border: "1px solid rgba(255,255,255,0.12)",
+    }}
+  >
+    <p className="text-2xl text-white">[ARTIST]</p>
+    <h2 className="text-3xl font-bold text-white">Artist Name</h2>
+    <p className="text-xl text-white">Location</p>
+    <p className="text-xl text-white font-bold">New Release</p>
+  </div>
 
-       <div className="absolute left-10 top-2/3 -translate-y-1/2 max-w-sm w-[90%] ">
-          <div
-            className="rounded-2xl p-6 shadow-2xl"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255,255,255,0.12)",
-            }}
-          >
-            <p className="text-2xl text-white">[ARTIST]</p>
-          <h2 className="text-3xl font-bold text-white">Artist Name</h2>
-            <p className="text-xl text-white">Location</p>
-            <p className="text-xl text-white font-bold">New Release</p>
+<h2 className="text-lg text-white p-4">Upcoming Events</h2>
+  {/* Card 2 */}
+  <div
+    className="rounded-2xl p-5 shadow-xl"
+    style={{
+      background: "rgba(255,255,255,0.05)",
+      backdropFilter: "blur(16px)",
+      border: "1px solid rgba(255,255,255,0.1)",
+    }}
+  >
+    <h3 className="text-lg font-semibold text-white">
+      Upcoming Event
+    </h3>
 
-          </div>
-          </div>
+    <p className="text-sm text-gray-300 mt-2">
+      Live in Colombo
+    </p>
 
+    <p className="text-xs text-gray-400 mt-1">
+      April 12 • 7:30 PM
+    </p>
+
+    <button className="mt-4 px-4 py-2 rounded-lg bg-white/10 text-white text-sm">
+      Get Tickets
+    </button>
+  </div>
+
+</div>
+
+          
     </div>
+    
+
+
+  
+
+
+
+
   );
 }
