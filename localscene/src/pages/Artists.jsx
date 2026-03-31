@@ -1,7 +1,37 @@
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
-import sm from "../assets/a1.jpg";
+
 
 export default function Artists() {
+  const [artists, setArtists] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    fetchArtists();
+  }, []);
+
+  const fetchArtists = async () => {
+    const { data, error } = await supabase
+      .from("artists")
+      .select("*");
+
+    if (!error) setArtists(data);
+  };
+
+  const currentArtist = artists[currentIndex];
+
+  const nextArtist = () => {
+    setCurrentIndex((prev) => (prev + 1) % artists.length);
+  };
+
+  const prevArtist = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? artists.length - 1 : prev - 1
+    );
+  };
+
+
   return (
     <div className="flex flex-col min-h-screen bg-black">
 
@@ -9,9 +39,8 @@ export default function Artists() {
 
         {/* Image */}
         <img
-          src={sm}
-          alt="artist"
-          className="w-full h-full object-cover"
+           src={currentArtist?.image_url}
+  className="w-full h-full object-cover"
           style={{ transform: "scale(1.03)" }}
         />
 
@@ -82,9 +111,17 @@ export default function Artists() {
     }}
   >
     <p className="text-2xl text-white">[ARTIST]</p>
-    <h2 className="text-3xl font-bold text-white">Artist Name</h2>
-    <p className="text-xl text-white">Location</p>
-    <p className="text-xl text-white font-bold">New Release</p>
+          <h2 className="text-3xl font-bold text-white">
+          {currentArtist?.name}
+        </h2>
+
+        <p className="text-xl text-white">
+          {currentArtist?.location}
+        </p>
+
+        <p className="text-xl text-white font-bold">
+          {currentArtist?.new_release}
+        </p>
   </div>
 
 <h2 className="text-lg text-white p-4">Upcoming Events</h2>
@@ -113,15 +150,33 @@ export default function Artists() {
       Get Tickets
     </button>
   </div>
+  
 
 </div>
 
-          
+             {/* NAV BUTTONS */}
+        <div className="absolute bottom-10 left-10 flex gap-4">
+          <button
+            onClick={prevArtist}
+            className="px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20"
+          >
+            ← Prev
+          </button>
+
+          <button
+            onClick={nextArtist}
+            className="px-4 py-2 rounded-lg bg-[#a21313] text-white"
+          >
+            Next →
+          </button>
+        </div>
+
     </div>
     
 
 
-  
+
+
 
 
 
