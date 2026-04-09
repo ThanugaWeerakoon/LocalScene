@@ -61,8 +61,7 @@ export default function MusicCarousel({ items = ARTISTS }) {
 
   return (
     <div
-      style={{
-        background: "linear-gradient(180deg, #0a0a14 0%, #0d0d1f 40%, #0a0a14 100%)",       
+      style={{       
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
