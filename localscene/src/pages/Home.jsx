@@ -115,7 +115,7 @@ export default function Home() {
     {artists.map((artist) => (
       <div
         key={artist.id}
-        className="rounded-2xl p-0 transition-all flex flex-col"
+        className="rounded-md p-0 transition-all flex flex-col"
         style={{
           background: "rgba(202, 202, 202, 0.02)",
           backdropFilter: "blur(18px)",
@@ -127,7 +127,7 @@ export default function Home() {
         <img
           src={artist.image}
           alt={artist.artist_name}
-          className="w-full h-32 rounded-t-xl object-cover mb-4 "
+          className="w-full h-32 rounded-t-md object-cover mb-4 "
         />
 
         <p className="text-xl font-bold mt-1 ml-2" style={{ color: "white" }}>
