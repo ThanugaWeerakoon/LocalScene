@@ -21,9 +21,8 @@ export default function Home() {
     fetchArtists();
   }, []);
   
-  return (
+  return (    
     <div className="flex flex-col min-h-screen" style={{ background: "linear-gradient(180deg, #0a0a14 0%, #0d0d1f 40%, #0a0a14 100%)" }}>
-    
    <Header />
       <section className="flex flex-col items-center justify-center text-center px-6 pt-5 pb-8 gap-4">
         
