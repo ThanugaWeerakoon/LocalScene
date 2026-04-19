@@ -320,7 +320,7 @@ export default function Artists() {
         <div style={{ display: "flex", flexDirection: "column" }}>
 
           {/* Hero image */}
-          <div style={{ position: "relative", height: "340px", overflow: "hidden", background: "#111" }}>
+          <div style={{ position: "relative", height: "520px", overflow: "hidden", background: "#111" }}>
             <img
               src={artist?.image_url}
               alt={artist?.name}
