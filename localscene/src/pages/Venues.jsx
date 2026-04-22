@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
 
-export default function Artists() {
-  const [artists, setArtists] = useState([]);
+export default function Venues() {
+  const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [activeRegion, setActiveRegion] = useState("All");
-  const [activeGenre, setActiveGenre] = useState(null);
 
-  useEffect(() => {
-  const fetchArtists = async () => {
+ useEffect(() => {
+  const fetchVenues = async () => {
     const { data, error } = await supabase
       .from("events")
       .select("*, artists(*), venues(*)")
@@ -19,50 +18,46 @@ export default function Artists() {
 
     if (!error && data) {
    
-      const artistMap = {};
+      const venueMap = {};
       data.forEach((event) => {
-        const id = event.artists.id;
-        if (!artistMap[id]) {
-          artistMap[id] = {
-            id: event.artists.id,
-            name: event.artists.artist_name,
-            genre: event.artists.genre,
-            location: event.artists.location,
-            image_url: event.artists.image,
-            photo_url: event.artists.photo_url,
-            verified: event.artists.verified,
-            new_release: event.artists.new_release,
-            youtube_id: event.artists.youtube_link,
-            contact_email: event.artists.contact_email,
+        const id = event.venues.id;
+        if (!venueMap[id]) {
+          venueMap[id] = {
+            id: event.venues.id,
+            name: event.venues.venue_name,
+            location: event.venues.location,
+            region: event.venues.region,
+            contact_number: event.venues.contact_number,
+            image_url: event.venues.image,
+            capacity: event.venues.capacity,
             upcoming_shows: [],
           };
         }
-        
-        artistMap[id].upcoming_shows.push({
+        venueMap[id].upcoming_shows.push({
           date: new Date(event.date_time).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-          venue: event.venues.venue_name,
+          artist: event.artists.artist_name,
           city: event.venues.location,
           ticket_url: "#",
         });
       });
-      setArtists(Object.values(artistMap));
+      setVenues(Object.values(venueMap));
     }
     setLoading(false);
   };
-  fetchArtists();
+  fetchVenues();
 }, []);
 
-  const artist = artists[currentIndex];
+  const venue = venues[currentIndex];
 
   if (loading) return (
     <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.3)", fontSize: "13px", letterSpacing: "0.1em" }}>Loading artists…</p>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.3)", fontSize: "13px", letterSpacing: "0.1em" }}>Loading venues…</p>
     </div>
   );
 
-  if (!artist) return (
+  if (!venue) return (
     <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.3)", fontSize: "13px", letterSpacing: "0.1em" }}>No artists found.</p>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.3)", fontSize: "13px", letterSpacing: "0.1em" }}>No venues found.</p>
     </div>
   );
 
@@ -72,19 +67,19 @@ export default function Artists() {
     setTimeout(() => {
       setCurrentIndex((prev) =>
         dir === "next"
-          ? (prev + 1) % artists.length
-          : prev === 0 ? artists.length - 1 : prev - 1
+          ? (prev + 1) % venues.length
+          : prev === 0 ? venues.length - 1 : prev - 1
       );
       setTransitioning(false);
     }, 300);
   };
 
-      const gradients = [
-        "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)",
-        "linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0.04) 100%)",
-        "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.3) 100%)",
-        "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0.06) 100%)",
-      ];
+  const gradients = [
+    "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)",
+    "linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0.04) 100%)",
+    "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.3) 100%)",
+    "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0.06) 100%)",
+  ];
 
   return (
     <div style={{ minHeight: "100vh", background: "#0a0a0a", color: "#fff", fontFamily: "'DM Sans', sans-serif" }}>
@@ -172,11 +167,26 @@ export default function Artists() {
         }
         .show-card-info {
           position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
+          bottom: 0; left: 0; right: 0;
           padding: 10px 12px;
         }
+
+        .date-chip {
+          display: inline-flex;
+          align-items: center;
+          padding: 4px 10px;
+          border-radius: 100px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.05);
+          color: rgba(255,255,255,0.6);
+          font-family: 'DM Sans', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 0.04em;
+          transition: all 0.18s ease;
+          cursor: default;
+        }
+        .date-chip:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.25); }
 
         .contact-btn {
           width: 100%;
@@ -207,31 +217,6 @@ export default function Artists() {
           transition: all 0.18s;
         }
         .contact-btn-outline:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
-
-        .lock-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          padding: 3px 9px;
-          background: rgba(255,255,255,0.07);
-          border: 1px solid rgba(255,255,255,0.12);
-          border-radius: 100px;
-          font-size: 10px;
-          color: rgba(255,255,255,0.45);
-          letter-spacing: 0.06em;
-        }
-
-        .verified-badge {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 18px;
-          height: 18px;
-          background: #1d9bf0;
-          border-radius: 50%;
-          font-size: 10px;
-          flex-shrink: 0;
-        }
 
         .sort-btn {
           display: flex;
@@ -267,7 +252,14 @@ export default function Artists() {
         gap: "10px",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}>
-       
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {["Canada", "USA", "UK", "Australia"].map((r) => (
+            <button key={r} className={`chip${activeRegion === r ? " active" : ""}`}
+              onClick={() => setActiveRegion(activeRegion === r ? "All" : r)}>
+              {r}
+            </button>
+          ))}
+        </div>
         <button className="sort-btn">
           Sort <span style={{ opacity: 0.4 }}>Sort, Region</span>
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -277,7 +269,7 @@ export default function Artists() {
       </div>
 
       {/* ── Main Content ── */}
-      <div style={{ display: "grid", minHeight: "calc(100vh - 120px)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", minHeight: "calc(100vh - 120px)" }}>
 
         {/* ── LEFT COLUMN ── */}
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -285,10 +277,10 @@ export default function Artists() {
           {/* Hero image */}
           <div style={{ position: "relative", height: "520px", overflow: "hidden", background: "#111" }}>
             <img
-              src={artist?.image_url}
-              alt={artist?.name}
+              src={venue?.image_url}
+              alt={venue?.name}
               className={`hero-img${transitioning ? " fade" : ""}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
             />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.7) 0%, transparent 60%)" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%)" }} />
@@ -296,83 +288,59 @@ export default function Artists() {
             <button className="arrow-btn" style={{ left: "12px" }} onClick={() => navigate("prev")}>‹</button>
             <button className="arrow-btn" style={{ right: "12px" }} onClick={() => navigate("next")}>›</button>
 
+            {/* Venue info overlay */}
             <div className={`info-block${transitioning ? " fade" : ""}`}
               style={{ position: "absolute", bottom: "20px", left: "20px", right: "20px" }}>
               <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "12px" }}>
                 <div>
                   <p style={{ fontSize: "10px", fontWeight: 400, letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginBottom: "4px" }}>
-                    [Artist]
+                    [Venue]
                   </p>
                   <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(28px, 5vw, 46px)", fontWeight: 700, lineHeight: 1, color: "#fff", marginBottom: "5px" }}>
-                    {artist?.name}
+                    {venue?.name}
                   </h1>
                   <p style={{ fontSize: "12px", fontWeight: 300, color: "rgba(255,255,255,0.5)", marginBottom: "8px" }}>
-                    {artist?.genre} &nbsp;·&nbsp; {artist?.location}
+                    {venue?.location} &nbsp;·&nbsp; {venue?.region}
                   </p>
-                  {artist?.new_release && (
+                  {venue?.capacity && (
                     <span style={{ fontSize: "10px", padding: "2px 8px", background: "rgba(255,255,255,0.1)", borderRadius: "4px", color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                      🎵 {artist.new_release}
+                      🏟 Capacity: {venue.capacity.toLocaleString()}
                     </span>
                   )}
                 </div>
                 <div style={{ textAlign: "right", flexShrink: 0 }}>
-                  <div style={{ marginBottom: "8px" }}>
-                    <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", marginBottom: "4px" }}>Rates (Locked)</p>
-                    <div className="lock-badge">🔒 Lock</div>
-                  </div>
-                  <button style={{
-                    padding: "8px 16px", background: "#fff", color: "#000", border: "none",
-                    borderRadius: "8px", fontFamily: "'DM Sans', sans-serif", fontSize: "12px",
-                    fontWeight: 600, cursor: "pointer",
-                  }}
+                  <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", marginBottom: "6px" }}>
+                    📞 {venue?.contact_number}
+                  </p>
+                  <button
+                    style={{
+                      padding: "8px 16px", background: "#fff", color: "#000", border: "none",
+                      borderRadius: "8px", fontFamily: "'DM Sans', sans-serif", fontSize: "12px",
+                      fontWeight: 600, cursor: "pointer",
+                    }}
                     onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
                     onMouseOut={e => e.currentTarget.style.opacity = "1"}
+                    onClick={() => venue?.contact_number && window.open(`tel:${venue.contact_number}`)}
                   >
-                    Contact Now to Book
+                    Contact Venue
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ── New Release / YouTube Player ── */}
+          {/* ── Available Dates ── */}
           <div style={{ padding: "14px 20px 10px" }}>
             <h2 style={{ fontSize: "13px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.9)", marginBottom: "12px" }}>
-              New Release
+              Available Dates
             </h2>
-            <div style={{
-              background: "rgba(20,20,20,0.9)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: "10px",
-              overflow: "hidden",
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              padding: "8px 12px",
-            }}>
-              <div style={{ flexShrink: 0, borderRadius: "6px", overflow: "hidden", width: "120px", height: "68px" }}>
-                <iframe
-                  key={artist?.id}
-                  src={`https://www.youtube.com/embed/${artist?.youtube_id || 'dQw4w9WgXcQ'}?rel=0&modestbranding=1`}
-                  title={`${artist?.name} - YouTube`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ width: "100%", height: "100%", border: "none", display: "block" }}
-                />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "3px" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF0000">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                  <span style={{ fontSize: "12px", fontWeight: 500, color: "rgba(255,255,255,0.8)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    {artist?.name}
-                  </span>
-                </div>
-                <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em" }}>
-                  {artist?.new_release || "Latest Track"}
-                </p>
-              </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {(venue?.available_dates || []).map((date, i) => (
+                <span key={i} className="date-chip">📅 {date}</span>
+              ))}
+              {venue?.available_dates?.length === 0 && (
+                <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>No available dates listed.</p>
+              )}
             </div>
           </div>
 
@@ -382,23 +350,20 @@ export default function Artists() {
               Upcoming Shows
             </h2>
             <div style={{ display: "flex", gap: "12px" }}>
-              {(artist?.upcoming_shows || []).map((show, i) => (
+              {(venue?.upcoming_shows || []).map((show, i) => (
                 <div key={i} className="show-card" style={{
-                  background: "rgba(230, 215, 215, 0.05)",
-                  border: "2px solid rgba(224, 212, 212, 0.12)",
+                  background: "rgba(230,215,215,0.05)",
+                  border: "2px solid rgba(224,212,212,0.12)",
                   backdropFilter: "blur(16px)",
                   WebkitBackdropFilter: "blur(16px)",
                   borderRadius: "12px",
                 }}>
-                  <div className="show-card-bg" style={{
-                    background: gradients[i % gradients.length],
-                    opacity: 0.4,
-                  }} />
+                  <div className="show-card-bg" style={{ background: gradients[i % gradients.length], opacity: 0.4 }} />
                   <div className="show-card-overlay" />
                   <div className="show-card-info">
                     <p style={{ fontSize: "13px", fontWeight: 600, color: "#fff", marginBottom: "1px" }}>{show.date}</p>
-                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#fff", marginBottom: "1px" }}>{show.city}</p>
-                    <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)", marginBottom: "6px" }}>{show.venue}</p>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#fff", marginBottom: "1px" }}>{show.artist}</p>
+                    <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)", marginBottom: "6px" }}>{show.city}</p>
                     <a href={show.ticket_url} style={{
                       fontSize: "11px", color: "rgba(255,255,255,0.65)",
                       textDecoration: "underline", textUnderlineOffset: "2px", letterSpacing: "0.04em",
@@ -406,11 +371,91 @@ export default function Artists() {
                   </div>
                 </div>
               ))}
+              {venue?.upcoming_shows?.length === 0 && (
+                <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>No upcoming shows listed.</p>
+              )}
             </div>
           </div>
         </div>
 
-        
+        {/* ── RIGHT SIDEBAR ── */}
+        <div style={{
+          borderLeft: "1px solid rgba(255,255,255,0.07)",
+          padding: "20px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+          background: "rgba(255,255,255,0.02)",
+        }}>
+
+          {/* Contact card */}
+          <div className="glass-card" style={{ padding: "16px" }}>
+            <p style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "12px" }}>
+              Book This Venue
+            </p>
+            <button className="contact-btn"
+              onClick={() => venue?.contact_number && window.open(`tel:${venue.contact_number}`)}>
+              📞 Call Venue
+            </button>
+          </div>
+
+          {/* Venue Stats card */}
+          <div className="glass-card" style={{ padding: "16px", flex: 1 }}>
+            <p style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "14px" }}>
+              Venue Info
+            </p>
+
+            {/* Venue thumbnail */}
+            <div style={{ borderRadius: "10px", overflow: "hidden", marginBottom: "14px", height: "80px" }}>
+              <img src={venue?.image_url} alt={venue?.name}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+
+            <p style={{ fontSize: "14px", fontWeight: 600, color: "#fff", marginBottom: "2px", fontFamily: "'Playfair Display', serif" }}>
+              {venue?.name}
+            </p>
+            <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginBottom: "16px" }}>
+              {venue?.location}
+            </p>
+
+            {[
+              { label: "Region", value: venue?.region },
+              { label: "Capacity", value: venue?.capacity?.toLocaleString() },
+              { label: "Available Dates", value: `${venue?.available_dates?.length || 0} dates` },
+              { label: "Upcoming Shows", value: `${venue?.upcoming_shows?.length || 0} shows` },
+            ].map((s) => (
+              <div key={s.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>{s.label}</span>
+                <span style={{ fontSize: "12px", fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>{s.value}</span>
+              </div>
+            ))}
+
+            <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+              <button className="contact-btn"
+                onClick={() => venue?.contact_number && window.open(`tel:${venue.contact_number}`)}>
+                Contact
+              </button>
+              <button className="contact-btn-outline">Check Availability</button>
+            </div>
+          </div>
+
+          {/* Pagination */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "4px 0" }}>
+            <button onClick={() => navigate("prev")} style={{
+              background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
+              color: "rgba(255,255,255,0.5)", borderRadius: "6px", padding: "5px 10px",
+              fontSize: "12px", cursor: "pointer",
+            }}>← Prev</button>
+            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)" }}>
+              {String(currentIndex + 1).padStart(2, "0")} / {String(venues.length).padStart(2, "0")}
+            </span>
+            <button onClick={() => navigate("next")} style={{
+              background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
+              color: "rgba(255,255,255,0.5)", borderRadius: "6px", padding: "5px 10px",
+              fontSize: "12px", cursor: "pointer",
+            }}>Next →</button>
+          </div>
+        </div>
       </div>
     </div>
   );
