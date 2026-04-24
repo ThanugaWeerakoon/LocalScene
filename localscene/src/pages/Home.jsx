@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
   
   return (    
-    <div className="flex flex-col min-h-screen" style={{ background: "linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 40%, #0a0a0a 100%)" }}>
+    <div className="flex flex-col min-h-screen" style={{ background: "linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 40%, #0a0a0a 100%)" ,  fontFamily: "'Space Grotesk', serif" }}>
    <Header />
       <section className="flex flex-col items-center justify-center text-center px-6 pt-5 pb-8 gap-4">
         

@@ -14,12 +14,13 @@ export default function Header() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: "'Space Grotesk', sans-serif",
       }}
     >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-      `}</style>
+          <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+      </style>
+
 
       {/* Logo */}
       <div className="flex items-center gap-2 flex-shrink-0">
@@ -31,7 +32,7 @@ export default function Header() {
         </div>
         <span
           className="text-lg font-bold tracking-tight hidden sm:block"
-          style={{ color: "#ffe7d7", opacity: 0.9, fontFamily: "'Playfair Display', serif" }}
+          style={{ color: "#ffe7d7", opacity: 0.9, fontFamily: "'Space Grotesk', serif" }}
         >
           LocalScene
           <span style={{ color: "#a21313" }}>.ca</span>
@@ -55,7 +56,7 @@ export default function Header() {
             border: "1px solid rgba(255,231,215,0.12)",
             color: "#ffe7d7",
             caretColor: "#00ce71",
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "'Space Grotesk', sans-serif",
           }}
         />
       </div>
@@ -63,7 +64,7 @@ export default function Header() {
       {/* Nav */}
       <ul
         className="flex pr-60 gap-14 list-none"
-        style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "17px", fontWeight: 400, color: "#eaeaea" }}
+        style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "17px", fontWeight: 400, color: "#eaeaea" }}
       >
         {["Home", "Venues", "Artists", "About" , "Gigs"].map((item) => (
           <li key={item}>
@@ -78,7 +79,7 @@ export default function Header() {
                 hover:after:scale-x-100
                 hover:text-white
               "
-              style={{ fontFamily: "'Playfair Display', serif" }}
+              style={{ fontFamily: "'Space Grotesk', serif" }}
             >
               {item}
             </Link>
@@ -93,7 +94,7 @@ export default function Header() {
           background: "rgba(162,19,19,0.15)",
           border: "1px solid rgba(162,19,19,0.5)",
           color: "#ffe7d7",
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "'Space Grotesk', sans-serif",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = "#a21313";
