@@ -69,14 +69,14 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <LucideLoader className="w-10 h-10 text-[#00ce7f] animate-spin" />
+      <div className="min-h-screen bg-[#0e0914] flex items-center justify-center">
+        <LucideLoader className="w-10 h-10 text-[#ff37d7] animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+    <div className="min-h-screen bg-[#0e0914] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
       <Header />
 
       {/* Hero Carousel */}
@@ -88,8 +88,8 @@ export default function Home() {
               index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105 pointer-events-none"
             }`}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0e0914] via-[#0e0914]/60 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0e0914] via-transparent to-transparent z-10" />
             <img
               src={event.image}
               alt={event.title}
@@ -99,7 +99,7 @@ export default function Home() {
             <div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-20 max-w-7xl mx-auto">
               <div className="space-y-6 max-w-2xl">
                 <div className="flex items-center gap-3">
-                  <span className="px-4 py-1.5 bg-[#00ce7f] text-black text-xs font-bold rounded-full uppercase tracking-widest">
+                  <span className="px-4 py-1.5 bg-[#ff37d7] text-white text-xs font-bold rounded-full uppercase tracking-widest">
                     Featured Event
                   </span>
                   <span className="text-gray-400 text-sm font-medium tracking-wide">
@@ -113,21 +113,21 @@ export default function Home() {
                 
                 <div className="flex flex-wrap items-center gap-6 text-lg text-gray-300">
                   <div className="flex items-center gap-2">
-                    <LucideMusic className="w-5 h-5 text-[#00ce7f]" />
+                    <LucideMusic className="w-5 h-5 text-[#ff37d7]" />
                     <span>{event.artist}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <LucideMapPin className="w-5 h-5 text-[#00ce7f]" />
+                    <LucideMapPin className="w-5 h-5 text-[#ff37d7]" />
                     <span>{event.venue}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <LucideCalendar className="w-5 h-5 text-[#00ce7f]" />
+                    <LucideCalendar className="w-5 h-5 text-[#ff37d7]" />
                     <span>{event.date}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 pt-4">
-                  <button className="px-8 py-4 bg-[#00ce7f] text-black font-bold rounded-2xl hover:shadow-[0_0_30px_rgba(0,206,127,0.4)] transition-all transform hover:scale-105">
+                  <button className="px-8 py-4 bg-[#ff37d7] text-white font-bold rounded-2xl hover:shadow-[0_0_30px_rgba(255,55,215,0.4)] transition-all transform hover:scale-105">
                     Get Tickets
                   </button>
                   <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/10 font-bold rounded-2xl hover:bg-white/20 transition-all">
@@ -143,13 +143,13 @@ export default function Home() {
         <div className="absolute bottom-10 right-6 md:right-20 z-30 flex items-center gap-4">
           <button 
             onClick={prevSlide}
-            className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center hover:bg-[#00ce7f] hover:text-black transition-all"
+            className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center hover:bg-[#ff37d7] hover:text-white transition-all"
           >
             <LucideChevronLeft className="w-6 h-6" />
           </button>
           <button 
             onClick={nextSlide}
-            className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center hover:bg-[#00ce7f] hover:text-black transition-all"
+            className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center hover:bg-[#ff37d7] hover:text-white transition-all"
           >
             <LucideChevronRight className="w-6 h-6" />
           </button>
@@ -162,7 +162,7 @@ export default function Home() {
               key={i}
               onClick={() => setCurrentSlide(i)}
               className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === currentSlide ? "w-12 bg-[#00ce7f]" : "w-3 bg-white/20"
+                i === currentSlide ? "w-12 bg-[#ff37d7]" : "w-3 bg-white/20"
               }`}
             />
           ))}
@@ -173,29 +173,29 @@ export default function Home() {
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-end justify-between gap-6 mb-12">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Discover the <span className="text-[#00ce7f]">Scene</span></h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Discover the <span className="text-[#ff37d7]">Scene</span></h2>
             <p className="text-gray-400 text-lg max-w-xl">Explore upcoming performances, legendary venues, and local talent in your city.</p>
           </div>
-          <button className="flex items-center gap-2 text-[#00ce7f] font-bold hover:gap-4 transition-all uppercase tracking-widest text-sm">
+          <button className="flex items-center gap-2 text-[#ff37d7] font-bold hover:gap-4 transition-all uppercase tracking-widest text-sm">
             View All Events <LucideArrowRight className="w-5 h-5" />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { label: "Gigs", sub: "Live music, underground sessions & concerts", icon: LucideMusic, link: "/gigs", color: "bg-purple-500" },
-            { label: "Venues", sub: "Iconic stages, intimate clubs & local halls", icon: LucideBuilding, link: "/venues", color: "bg-blue-500" },
+            { label: "Gigs", sub: "Live music, underground sessions & concerts", icon: LucideMusic, link: "/gigs", color: "bg-[#4e148c]" },
+            { label: "Venues", sub: "Iconic stages, intimate clubs & local halls", icon: LucideBuilding, link: "/venues", color: "bg-[#e21313]" },
             { label: "Artists", sub: "Rising stars, local legends & performers", icon: LucideUsers, link: "/artists", color: "bg-[#00ce7f]" },
           ].map((item) => (
             <a
               key={item.label}
               href={item.link}
-              className="group relative p-8 bg-white/5 rounded-[2.5rem] border border-white/10 overflow-hidden hover:border-[#00ce7f]/30 transition-all duration-500"
+              className="group relative p-8 bg-white/5 rounded-[2.5rem] border border-white/10 overflow-hidden hover:border-[#ff37d7]/30 transition-all duration-500"
             >
-              <div className={`w-14 h-14 rounded-2xl ${item.color}/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+              <div className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
                 <item.icon className={`w-7 h-7 text-white`} />
               </div>
-              <h3 className="text-2xl font-bold mb-2 group-hover:text-[#00ce7f] transition-colors">{item.label}</h3>
+              <h3 className="text-2xl font-bold mb-2 group-hover:text-[#ff37d7] transition-colors">{item.label}</h3>
               <p className="text-gray-400 leading-relaxed mb-6">{item.sub}</p>
               <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0">
                 Explore <LucideChevronRight className="w-4 h-4" />
@@ -211,7 +211,7 @@ export default function Home() {
       <section className="py-24 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold italic tracking-tight">The <span className="text-[#00ce7f]">Roster</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold italic tracking-tight">The <span className="text-[#ff37d7]">Roster</span></h2>
             <div className="hidden md:flex gap-4">
                {/* Could add filter tabs here */}
             </div>
@@ -221,16 +221,16 @@ export default function Home() {
             {upcomingGigs.map((gig) => (
               <div
                 key={gig.id}
-                className="group relative aspect-[3/4] rounded-3xl overflow-hidden border border-white/10 hover:border-[#00ce7f]/40 transition-all duration-500 cursor-pointer"
+                className="group relative aspect-[3/4] rounded-3xl overflow-hidden border border-white/10 hover:border-[#ff37d7]/40 transition-all duration-500 cursor-pointer"
               >
                 <img
                   src={gig.image}
                   alt={gig.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0914] via-[#0e0914]/20 to-transparent opacity-80" />
                 
-                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] font-bold text-[#00ce7f] uppercase">
+                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] font-bold text-[#ff37d7] uppercase">
                   {gig.date}
                 </div>
 
@@ -238,7 +238,7 @@ export default function Home() {
                   <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
                     {gig.artist}
                   </p>
-                  <h4 className="text-lg font-bold group-hover:text-[#00ce7f] transition-colors leading-tight mb-3">
+                  <h4 className="text-lg font-bold group-hover:text-[#ff37d7] transition-colors leading-tight mb-3">
                     {gig.title}
                   </h4>
                   <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
@@ -251,8 +251,8 @@ export default function Home() {
           </div>
           
           <div className="mt-16 text-center">
-             <button className="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center gap-3 mx-auto">
-                Load More Gigs <LucideArrowRight className="w-5 h-5 text-[#00ce7f]" />
+             <button className="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center gap-3 mx-auto group">
+                Load More Gigs <LucideArrowRight className="w-5 h-5 text-[#ff37d7] group-hover:translate-x-1 transition-transform" />
              </button>
           </div>
         </div>
@@ -262,7 +262,7 @@ export default function Home() {
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
-            <h2 className="text-3xl font-bold mb-6">Local<span className="text-[#00ce7f]">Scene</span></h2>
+            <h2 className="text-3xl font-bold mb-6">Local<span className="text-[#ff37d7]">Scene</span></h2>
             <p className="text-gray-400 max-w-sm leading-relaxed mb-8">
               Your ultimate guide to the local music landscape. Discover shows, support artists, and experience the scene like never before.
             </p>
@@ -274,19 +274,19 @@ export default function Home() {
           <div>
             <h4 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">Navigation</h4>
             <ul className="space-y-4 text-gray-400">
-              <li><a href="/" className="hover:text-[#00ce7f] transition-colors">Home</a></li>
-              <li><a href="/gigs" className="hover:text-[#00ce7f] transition-colors">Find Gigs</a></li>
-              <li><a href="/venues" className="hover:text-[#00ce7f] transition-colors">Venues</a></li>
-              <li><a href="/artists" className="hover:text-[#00ce7f] transition-colors">Artists</a></li>
+              <li><a href="/" className="hover:text-[#ff37d7] transition-colors">Home</a></li>
+              <li><a href="/gigs" className="hover:text-[#ff37d7] transition-colors">Find Gigs</a></li>
+              <li><a href="/venues" className="hover:text-[#ff37d7] transition-colors">Venues</a></li>
+              <li><a href="/artists" className="hover:text-[#ff37d7] transition-colors">Artists</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">Legal</h4>
             <ul className="space-y-4 text-gray-400">
-              <li><a href="#" className="hover:text-[#00ce7f] transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-[#00ce7f] transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-[#00ce7f] transition-colors">Ticket Info</a></li>
+              <li><a href="#" className="hover:text-[#ff37d7] transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-[#ff37d7] transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-[#ff37d7] transition-colors">Ticket Info</a></li>
             </ul>
           </div>
         </div>

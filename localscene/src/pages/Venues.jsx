@@ -76,21 +76,21 @@ export default function Venues() {
   const regions = ["All", ...new Set(venues.map((v) => v.region))].filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+    <div className="min-h-screen bg-[#0e0914] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
       <Header />
 
       {/* Hero / Filter Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#00ce7f]/10 rounded-full blur-[120px]" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4e148c]/10 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#ff37d7]/10 rounded-full blur-[120px]" />
         </div>
 
         <div className="relative max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
             <div>
               <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-                Local <span className="text-[#00ce7f]">Venues</span>
+                Local <span className="text-[#ff37d7]">Venues</span>
               </h1>
               <p className="text-gray-400 text-lg max-w-xl">
                 Explore the most iconic stages, intimate clubs, and legendary halls in the local scene.
@@ -103,7 +103,7 @@ export default function Venues() {
                 <input
                   type="text"
                   placeholder="Search by name or city..."
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:border-[#00ce7f]/50 transition-all placeholder:text-gray-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:border-[#ff37d7]/50 transition-all placeholder:text-gray-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -111,12 +111,12 @@ export default function Venues() {
               <div className="relative">
                 <LucideFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <select
-                  className="appearance-none bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-10 focus:outline-none focus:border-[#00ce7f]/50 transition-all cursor-pointer text-white"
+                  className="appearance-none bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-10 focus:outline-none focus:border-[#ff37d7]/50 transition-all cursor-pointer text-white"
                   value={selectedRegion}
                   onChange={(e) => setSelectedRegion(e.target.value)}
                 >
                   {regions.map(r => (
-                    <option key={r} value={r} className="bg-[#0a0a0a]">{r}</option>
+                    <option key={r} value={r} className="bg-[#0e0914]">{r}</option>
                   ))}
                 </select>
               </div>
@@ -126,7 +126,7 @@ export default function Venues() {
           {/* Venues Grid */}
           {loading ? (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-              <LucideLoader2 className="w-10 h-10 text-[#00ce7f] animate-spin" />
+              <LucideLoader2 className="w-10 h-10 text-[#ff37d7] animate-spin" />
               <p className="text-gray-400 animate-pulse">Mapping out the venues...</p>
             </div>
           ) : filteredVenues.length > 0 ? (
@@ -134,7 +134,7 @@ export default function Venues() {
               {filteredVenues.map((venue) => (
                 <div
                   key={venue.id}
-                  className="group relative bg-white/5 rounded-[2rem] border border-white/10 overflow-hidden hover:border-[#00ce7f]/30 transition-all duration-500 flex flex-col"
+                  className="group relative bg-white/5 rounded-[2rem] border border-white/10 overflow-hidden hover:border-[#ff37d7]/30 transition-all duration-500 flex flex-col"
                   style={{ backdropFilter: "blur(10px)" }}
                 >
                   {/* Image Header */}
@@ -144,11 +144,11 @@ export default function Venues() {
                       alt={venue.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0e0914] via-transparent to-transparent opacity-80" />
                     
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="px-3 py-1 bg-[#00ce7f] text-black text-[10px] font-bold rounded-full uppercase tracking-wider">
+                        <span className="px-3 py-1 bg-[#ff37d7] text-white text-[10px] font-bold rounded-full uppercase tracking-wider">
                           {venue.region}
                         </span>
                         {venue.capacity && (
@@ -157,7 +157,7 @@ export default function Venues() {
                           </span>
                         )}
                       </div>
-                      <h3 className="text-2xl font-bold group-hover:text-[#00ce7f] transition-colors">
+                      <h3 className="text-2xl font-bold group-hover:text-[#ff37d7] transition-colors">
                         {venue.name}
                       </h3>
                     </div>
@@ -168,7 +168,7 @@ export default function Venues() {
                     <div className="space-y-4 mb-8">
                       <div className="flex items-start gap-4">
                         <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
-                          <LucideMapPin className="w-5 h-5 text-[#00ce7f]" />
+                          <LucideMapPin className="w-5 h-5 text-[#ff37d7]" />
                         </div>
                         <div>
                           <p className="text-sm text-gray-400 leading-relaxed">
@@ -180,7 +180,7 @@ export default function Venues() {
                       {venue.contact_number && (
                         <div className="flex items-center gap-4">
                           <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
-                            <LucidePhone className="w-5 h-5 text-[#00ce7f]" />
+                            <LucidePhone className="w-5 h-5 text-[#ff37d7]" />
                           </div>
                           <p className="text-sm text-gray-300 font-medium">
                             {venue.contact_number}
@@ -199,7 +199,7 @@ export default function Venues() {
                           {venue.upcoming_shows.slice(0, 2).map((show, i) => (
                             <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5">
                               <div className="flex items-center gap-3">
-                                <span className="text-[10px] font-bold text-[#00ce7f] w-12">
+                                <span className="text-[10px] font-bold text-[#ff37d7] w-12">
                                   {show.date}
                                 </span>
                                 <span className="text-sm font-medium truncate max-w-[150px]">
@@ -220,7 +220,7 @@ export default function Venues() {
                       >
                         Contact
                       </button>
-                      <button className="flex-1 py-4 bg-[#00ce7f] text-black hover:shadow-[0_0_20px_rgba(0,206,127,0.4)] rounded-2xl font-bold transition-all">
+                      <button className="flex-1 py-4 bg-[#ff37d7] text-white hover:shadow-[0_0_206px_rgba(255,55,215,0.4)] rounded-2xl font-bold transition-all">
                         View Details
                       </button>
                     </div>
@@ -240,7 +240,7 @@ export default function Venues() {
 
       {/* Footer */}
       <footer className="py-12 border-t border-white/5 text-center">
-        <p className="text-gray-600 text-sm">© 2024 LocalScene. Venue discovery made simple.</p>
+        <p className="text-gray-600 text-sm">© 2026 LocalScene. Venue discovery made simple.</p>
       </footer>
     </div>
   );

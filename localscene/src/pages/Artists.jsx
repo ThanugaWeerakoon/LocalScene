@@ -79,21 +79,21 @@ export default function Artists() {
   const genres = ["All", ...new Set(artists.map((a) => a.genre))].filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+    <div className="min-h-screen bg-[#0e0914] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
       <Header />
 
       {/* Hero / Filter Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none">
-            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#00ce7f]/10 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px]" />
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#ff37d7]/10 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#4e148c]/10 rounded-full blur-[120px]" />
         </div>
 
         <div className="relative max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
             <div>
               <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-                Spotlight <span className="text-[#00ce7f]">Artists</span>
+                Spotlight <span className="text-[#ff37d7]">Artists</span>
               </h1>
               <p className="text-gray-400 text-lg max-w-xl">
                 Discover the most talented performers, rising stars, and established icons of the local music scene.
@@ -106,7 +106,7 @@ export default function Artists() {
                 <input
                   type="text"
                   placeholder="Search by name, genre..."
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:border-[#00ce7f]/50 transition-all placeholder:text-gray-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:border-[#ff37d7]/50 transition-all placeholder:text-gray-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -114,12 +114,12 @@ export default function Artists() {
               <div className="relative">
                 <LucideFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <select
-                  className="appearance-none bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-10 focus:outline-none focus:border-[#00ce7f]/50 transition-all cursor-pointer text-white"
+                  className="appearance-none bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-10 focus:outline-none focus:border-[#ff37d7]/50 transition-all cursor-pointer text-white"
                   value={selectedGenre}
                   onChange={(e) => setSelectedGenre(e.target.value)}
                 >
                   {genres.map(g => (
-                    <option key={g} value={g} className="bg-[#0a0a0a]">{g}</option>
+                    <option key={g} value={g} className="bg-[#0e0914]">{g}</option>
                   ))}
                 </select>
               </div>
@@ -129,7 +129,7 @@ export default function Artists() {
           {/* Artists Grid */}
           {loading ? (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-              <LucideLoader2 className="w-10 h-10 text-[#00ce7f] animate-spin" />
+              <LucideLoader2 className="w-10 h-10 text-[#ff37d7] animate-spin" />
               <p className="text-gray-400 animate-pulse">Gathering the artists...</p>
             </div>
           ) : filteredArtists.length > 0 ? (
@@ -137,7 +137,7 @@ export default function Artists() {
               {filteredArtists.map((artist) => (
                 <div
                   key={artist.id}
-                  className="group relative bg-white/5 rounded-3xl border border-white/10 overflow-hidden hover:border-[#00ce7f]/30 transition-all duration-500 flex flex-col"
+                  className="group relative bg-white/5 rounded-3xl border border-white/10 overflow-hidden hover:border-[#ff37d7]/30 transition-all duration-500 flex flex-col"
                   style={{ backdropFilter: "blur(10px)" }}
                 >
                   {/* Image Header */}
@@ -147,20 +147,20 @@ export default function Artists() {
                       alt={artist.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0e0914] via-transparent to-transparent opacity-90" />
                     
                     {/* Verified Badge */}
                     {artist.verified && (
-                      <div className="absolute top-4 right-4 bg-blue-500 text-white p-1 rounded-full shadow-lg">
+                      <div className="absolute top-4 right-4 bg-[#ff37d7] text-white p-1 rounded-full shadow-lg">
                         <LucideCheckCircle className="w-4 h-4 fill-current" />
                       </div>
                     )}
 
                     <div className="absolute bottom-6 left-6 right-6">
-                      <p className="text-[10px] font-bold text-[#00ce7f] uppercase tracking-widest mb-2">
+                      <p className="text-[10px] font-bold text-[#ff37d7] uppercase tracking-widest mb-2">
                         {artist.genre}
                       </p>
-                      <h3 className="text-2xl font-bold group-hover:text-[#00ce7f] transition-colors leading-tight">
+                      <h3 className="text-2xl font-bold group-hover:text-[#ff37d7] transition-colors leading-tight">
                         {artist.name}
                       </h3>
                     </div>
@@ -186,17 +186,17 @@ export default function Artists() {
                     <div className="mt-auto pt-6 border-t border-white/5">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex -space-x-2">
-                           <div className="w-8 h-8 rounded-full bg-white/5 border border-[#0a0a0a] flex items-center justify-center text-[10px] font-bold">
+                           <div className="w-8 h-8 rounded-full bg-white/5 border border-[#0e0914] flex items-center justify-center text-[10px] font-bold">
                              {artist.upcoming_shows.length}
                            </div>
                            <span className="pl-4 text-[10px] text-gray-500 self-center uppercase tracking-tighter">Shows</span>
                         </div>
                         {artist.youtube_id && (
-                          <LucideVideo className="w-5 h-5 text-red-500 opacity-60 hover:opacity-100 transition-opacity cursor-pointer" />
+                          <LucideVideo className="w-5 h-5 text-[#e21313] opacity-60 hover:opacity-100 transition-opacity cursor-pointer" />
                         )}
                       </div>
 
-                      <button className="w-full py-3 bg-white/5 hover:bg-[#00ce7f] hover:text-black hover:shadow-[0_0_20px_rgba(0,206,127,0.3)] border border-white/10 hover:border-transparent rounded-2xl font-bold transition-all flex items-center justify-center gap-2 group/btn text-sm">
+                      <button className="w-full py-3 bg-white/5 hover:bg-[#ff37d7] hover:text-white hover:shadow-[0_0_20px_rgba(255,55,215,0.3)] border border-white/10 hover:border-transparent rounded-2xl font-bold transition-all flex items-center justify-center gap-2 group/btn text-sm">
                         View Profile <LucideArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </button>
                     </div>
@@ -216,7 +216,7 @@ export default function Artists() {
 
       {/* Footer */}
       <footer className="py-12 border-t border-white/5 text-center">
-        <p className="text-gray-600 text-sm">© 2024 LocalScene. Celebrating local talent.</p>
+        <p className="text-gray-600 text-sm">© 2026 LocalScene. Celebrating local talent.</p>
       </footer>
     </div>
   );
