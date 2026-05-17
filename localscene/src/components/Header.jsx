@@ -233,7 +233,7 @@ export default function Header() {
         className="flex gap-8 list-none items-center"
         style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "15px", fontWeight: 400, color: "#eaeaea" }}
       >
-        {["Venues", "Artists", "Gigs"].map((item) => (
+        {["Venues", "Artists", "Gigs", "About"].map((item) => (
           <li key={item}>
             <Link
               to={`/${item.toLowerCase()}`}

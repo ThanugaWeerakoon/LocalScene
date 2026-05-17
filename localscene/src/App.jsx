@@ -4,6 +4,7 @@ import './index.css';
 import Artists from "./pages/Artists";
 import Gigs from "./pages/Gigs";
 import Venues from "./pages/Venues";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/artists" element={<Artists />} />
         <Route path="/gigs" element={<Gigs />} />
         <Route path="/venues" element={<Venues />} />
+         <Route path="/about" element={<About />} />
       </Routes>
     </Router>
   );
