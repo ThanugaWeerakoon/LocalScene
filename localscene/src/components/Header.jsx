@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { Search, Music, MapPin, Calendar, Loader2, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
+  const { user, profile, userRole, signOut } = useAuth();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState({ artists: [], venues: [], events: [] });
   const [isSearching, setIsSearching] = useState(false);
@@ -255,25 +257,48 @@ export default function Header() {
       </ul>
 
       {/* Auth */}
-      <button
-        className="flex-shrink-0 px-5 py-2 rounded-xl text-sm font-semibold transition ml-4"
-        style={{
-          background: "rgba(226,19,19,0.12)",
-          border: "1px solid rgba(226,19,19,0.45)",
-          color: "#fff",
-          fontFamily: "'Space Grotesk', sans-serif",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "#e21313";
-          e.currentTarget.style.borderColor = "#e21313";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(226,19,19,0.12)";
-          e.currentTarget.style.borderColor = "rgba(226,19,19,0.45)";
-        }}
-      >
-        Login / Sign Up
-      </button>
+      {user && profile ? (
+        <div className="flex items-center gap-3 bg-white/[0.03] border border-white/10 rounded-2xl p-1.5 pl-3 ml-4 shrink-0">
+          <div className="hidden md:flex flex-col text-right">
+            <span className="text-xs font-bold text-white leading-tight">
+              {profile.artist_name || profile.venue_name}
+            </span>
+            <span className="text-[9px] text-[#ff37d7] font-semibold uppercase tracking-widest leading-none mt-0.5">
+              {userRole}
+            </span>
+          </div>
+          <Link to="/dashboard" className="w-9 h-9 rounded-xl overflow-hidden border border-white/15 hover:border-[#ff37d7]/50 transition-all shrink-0">
+            <img src={profile.image || "https://via.placeholder.com/36"} alt="" className="w-full h-full object-cover" />
+          </Link>
+          <button
+            onClick={signOut}
+            className="px-3 py-1.5 rounded-xl text-[10px] font-bold bg-white/5 hover:bg-[#e21313] hover:text-white border border-white/10 hover:border-transparent transition-all ml-1 cursor-pointer"
+          >
+            Sign Out
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={() => navigate("/login")}
+          className="flex-shrink-0 px-5 py-2 rounded-xl text-sm font-semibold transition ml-4 cursor-pointer"
+          style={{
+            background: "rgba(226,19,19,0.12)",
+            border: "1px solid rgba(226,19,19,0.45)",
+            color: "#fff",
+            fontFamily: "'Space Grotesk', sans-serif",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#e21313";
+            e.currentTarget.style.borderColor = "#e21313";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(226,19,19,0.12)";
+            e.currentTarget.style.borderColor = "rgba(226,19,19,0.45)";
+          }}
+        >
+          Login / Sign Up
+        </button>
+      )}
     </header>
   );
 }
