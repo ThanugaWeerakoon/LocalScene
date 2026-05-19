@@ -1,0 +1,13 @@
+# Apache configuration to enable React Router Single Page Application (SPA) routing.
+# This file is automatically copied to your 'dist' folder during build.
+# Upload this file along with your other build files into your cPanel public_html directory.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>

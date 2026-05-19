@@ -14,6 +14,22 @@ import {
   Loader2 as LucideLoader
 } from "lucide-react";
 
+const CANADIAN_REGIONS = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Yukon",
+  "Nunavut"
+];
+
 export default function Home() {
   const [carouselEvents, setCarouselEvents] = useState([]);
   const [upcomingGigs, setUpcomingGigs] = useState([]);
@@ -32,17 +48,19 @@ export default function Home() {
         if (error) throw error;
 
         if (data) {
-          const normalized = data.map(event => ({
-            id: event.id,
-            title: event.event_name,
-            artist: event.artists?.artist_name || "Unknown Artist",
-            venue: event.venues?.venue_name || "Secret Location",
-            location: event.venues?.location || event.region,
-            date: new Date(event.date_time).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-            image: event.artists?.image || "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1200&auto=format&fit=crop&q=60",
-            price: event.ticket_price,
-            genre: event.artists?.genre || "Music",
-          }));
+          const normalized = data
+            .filter(event => CANADIAN_REGIONS.includes(event.region))
+            .map(event => ({
+              id: event.id,
+              title: event.event_name,
+              artist: event.artists?.artist_name || "Unknown Artist",
+              venue: event.venues?.venue_name || "Secret Location",
+              location: event.venues?.location || event.region,
+              date: new Date(event.date_time).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+              image: event.artists?.image || "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1200&auto=format&fit=crop&q=60",
+              price: event.ticket_price,
+              genre: event.artists?.genre || "Music",
+            }));
 
           setCarouselEvents(normalized.slice(0, 5));
           setUpcomingGigs(normalized.slice(0, 10));

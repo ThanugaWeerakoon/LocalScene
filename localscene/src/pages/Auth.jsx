@@ -33,6 +33,22 @@ const VENUE_PRESETS = [
 
 const GENRES = ["Alt-Folk", "Indie Rock", "Electronic", "Jazz", "Hip-Hop", "Acoustic", "Metal", "Pop", "Blues"];
 
+const CANADIAN_REGIONS = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Yukon",
+  "Nunavut"
+];
+
 export default function Auth() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,7 +64,7 @@ export default function Auth() {
   const [role, setRole] = useState("artist"); // 'artist' | 'venue'
   const [name, setName] = useState("");
   const [loc, setLoc] = useState("");
-  const [region, setRegion] = useState("Canada");
+  const [region, setRegion] = useState("Ontario");
   const [genre, setGenre] = useState(GENRES[0]);
   const [capacity, setCapacity] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -296,14 +312,16 @@ export default function Auth() {
                     </div>
                     <div>
                       <label className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Region</label>
-                      <input 
-                        type="text" 
-                        placeholder="Canada"
+                      <select 
                         required
                         value={region}
                         onChange={(e) => setRegion(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#ff37d7]/50 focus:bg-white/[0.08] transition-all placeholder:text-gray-600"
-                      />
+                        className="w-full bg-[#1b1524] border border-white/10 rounded-2xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#ff37d7]/50 transition-all cursor-pointer text-white"
+                      >
+                        {CANADIAN_REGIONS.map(r => (
+                          <option key={r} value={r} className="bg-[#0e0914]">{r}</option>
+                        ))}
+                      </select>
                     </div>
                   </div>
 

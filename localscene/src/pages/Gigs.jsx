@@ -3,6 +3,22 @@ import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
 import { Search, MapPin, Calendar, Ticket, Filter, Music, Loader2 } from "lucide-react";
 
+const CANADIAN_REGIONS = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Yukon",
+  "Nunavut"
+];
+
 export default function Gigs() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +64,8 @@ export default function Gigs() {
   }, []);
 
   const filteredEvents = events.filter((event) => {
+    if (!CANADIAN_REGIONS.includes(event.region)) return false;
+
     const matchesSearch = 
       event.event_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.artist_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -58,7 +76,7 @@ export default function Gigs() {
     return matchesSearch && matchesRegion;
   });
 
-  const regions = ["All", ...new Set(events.map((e) => e.region))].filter(Boolean);
+  const regions = ["All", ...new Set(events.filter(e => CANADIAN_REGIONS.includes(e.region)).map((e) => e.region))].filter(Boolean);
 
   return (
     <div className="min-h-screen bg-[#0e0914] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -172,7 +190,7 @@ export default function Gigs() {
                         <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                           <Ticket className="w-4 h-4 text-[#ff37d7]" />
                         </div>
-                        <span>LKR {event.ticket_price} • {event.available_tickets > 0 ? `${event.available_tickets} left` : "Sold Out"}</span>
+                        <span>CAD ${event.ticket_price} • {event.available_tickets > 0 ? `${event.available_tickets} left` : "Sold Out"}</span>
                       </div>
                     </div>
 

@@ -25,6 +25,22 @@ const EVENT_IMAGE_PRESETS = [
   { id: "ev5", name: "Grand Stadium Arena", url: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80" }
 ];
 
+const CANADIAN_REGIONS = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Yukon",
+  "Nunavut"
+];
+
 export default function Dashboard() {
   const { user, profile, userRole, signOut, loading: authLoading } = useAuth();
   const [myGigs, setMyGigs] = useState([]);
@@ -36,7 +52,7 @@ export default function Dashboard() {
   const [ticketPrice, setTicketPrice] = useState("");
   const [availableTickets, setAvailableTickets] = useState("");
   const [bookingEmail, setBookingEmail] = useState("");
-  const [region, setRegion] = useState("");
+  const [region, setRegion] = useState("Ontario");
   const [moreInfo, setMoreInfo] = useState("");
   const [eventImage, setEventImage] = useState(EVENT_IMAGE_PRESETS[0].url);
 
@@ -109,7 +125,7 @@ export default function Dashboard() {
 
       // Pre-populate fields
       setBookingEmail(profile?.contact_email || profile?.contact_number || "");
-      setRegion(profile?.region || "Canada");
+      setRegion(profile?.region || "Ontario");
     }
   }, [user, userRole, profile]);
 
@@ -131,7 +147,7 @@ export default function Dashboard() {
         ticket_price: parseFloat(ticketPrice) || 0,
         available_tickets: parseInt(availableTickets) || 0,
         booking_email: bookingEmail,
-        region: region || "Canada",
+        region: region || "Ontario",
         more_info: moreInfo,
         image: eventImage,
         artist_id: userRole === "artist" ? user.id : selectedRelationalId,
@@ -304,13 +320,13 @@ export default function Dashboard() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Ticket Price (LKR) *</label>
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Ticket Price (CAD) *</label>
                     <input 
                       type="number"
                       required
-                      placeholder="e.g. 2500"
+                      placeholder="e.g. 25"
                       value={ticketPrice}
                       onChange={(e) => setTicketPrice(e.target.value)}
                       className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#ff37d7]/50 focus:bg-white/[0.08] transition-all"
@@ -378,13 +394,15 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Region</label>
-                    <input 
-                      type="text"
-                      placeholder="Canada"
+                    <select 
                       value={region}
                       onChange={(e) => setRegion(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#ff37d7]/50 focus:bg-white/[0.08] transition-all"
-                    />
+                      className="w-full bg-[#1b1524] border border-white/10 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#ff37d7]/50 transition-all cursor-pointer text-white"
+                    >
+                      {CANADIAN_REGIONS.map(r => (
+                        <option key={r} value={r} className="bg-[#0e0914]">{r}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
@@ -507,7 +525,7 @@ export default function Dashboard() {
                           </p>
                           <p className="text-xs text-gray-300 flex items-center gap-2">
                             <Ticket className="w-3.5 h-3.5 text-[#ff37d7] shrink-0" />
-                            <span>LKR {gig.ticket_price} • {gig.available_tickets} Tickets Left</span>
+                            <span>CAD ${gig.ticket_price} • {gig.available_tickets} Tickets Left</span>
                           </p>
                           {gig.more_info && (
                             <p className="text-xs text-gray-500 italic line-clamp-2 mt-2 pt-2 border-t border-white/5">

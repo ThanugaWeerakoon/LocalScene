@@ -11,6 +11,22 @@ import {
   ArrowRight as LucideArrowRight
 } from "lucide-react";
 
+const CANADIAN_REGIONS = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Yukon",
+  "Nunavut"
+];
+
 export default function Venues() {
   const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,6 +79,8 @@ export default function Venues() {
   }, []);
 
   const filteredVenues = venues.filter((venue) => {
+    if (!CANADIAN_REGIONS.includes(venue.region)) return false;
+
     const matchesSearch = 
       venue.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       venue.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -73,7 +91,7 @@ export default function Venues() {
     return matchesSearch && matchesRegion;
   });
 
-  const regions = ["All", ...new Set(venues.map((v) => v.region))].filter(Boolean);
+  const regions = ["All", ...new Set(venues.filter(v => CANADIAN_REGIONS.includes(v.region)).map((v) => v.region))].filter(Boolean);
 
   return (
     <div className="min-h-screen bg-[#0e0914] text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
