@@ -73,7 +73,7 @@ export default function Header() {
     <header
       className="px-6 py-4 flex items-center justify-between gap-4 border-b border-white/5"
       style={{
-        background: "rgba(14, 9, 20, 0.85)",
+        background: "#0e0914",
         backdropFilter: "blur(20px)",
         position: "sticky",
         top: 0,
@@ -324,16 +324,21 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-x-0 top-[73px] z-40 bg-[#0e0914]/98 backdrop-blur-2xl flex flex-col p-6 border-b border-white/5 lg:hidden animate-fade-in"
-          style={{ height: "calc(100vh - 73px)" }}
+          className="fixed inset-x-0 top-[73px] z-40 flex flex-col p-6 border-b border-white/5 lg:hidden animate-fade-in"
+          style={{ 
+            height: "calc(100vh - 73px)",
+            background: "#0e0914",
+            backdropFilter: "blur(20px)"
+          }}
         >
-          <ul className="flex flex-col gap-6 text-xl font-bold mb-8">
+          <ul className="flex flex-col gap-4 text-lg font-bold mb-8">
             {["Venues", "Artists", "Gigs", "About"].map((item) => (
               <li key={item}>
                 <Link
                   to={`/${item.toLowerCase()}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-300 hover:text-[#ff37d7] transition-colors"
+                  className="block px-5 py-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-[#ff37d7]/10 hover:border-[#ff37d7]/35 text-gray-200 hover:text-white transition-all duration-300 font-medium"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 >
                   {item}
                 </Link>

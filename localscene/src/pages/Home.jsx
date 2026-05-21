@@ -129,17 +129,20 @@ export default function Home() {
                   {event.title}
                 </h1>
                 
-                <div className="flex flex-wrap items-center gap-6 text-lg text-gray-300">
-                  <div className="flex items-center gap-2">
-                    <LucideMusic className="w-5 h-5 text-[#ff37d7]" />
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-4 text-xl md:text-2xl text-white/90 font-medium">
+                  <div className="flex items-center gap-3">
+                    <LucideMusic className="w-6 h-6 md:w-7 md:h-7 text-[#ff37d7] shrink-0" />
                     <span>{event.artist}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <LucideMapPin className="w-5 h-5 text-[#ff37d7]" />
-                    <span>{event.venue}</span>
+                  <div className="flex items-center gap-3">
+                    <LucideMapPin className="w-6 h-6 md:w-7 md:h-7 text-[#ff37d7] shrink-0" />
+                    <span>
+                      {event.venue}
+                      <span className="text-gray-400 text-lg md:text-xl font-normal ml-2">({event.location})</span>
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <LucideCalendar className="w-5 h-5 text-[#ff37d7]" />
+                  <div className="flex items-center gap-3">
+                    <LucideCalendar className="w-6 h-6 md:w-7 md:h-7 text-[#ff37d7] shrink-0" />
                     <span>{event.date}</span>
                   </div>
                 </div>
@@ -229,7 +232,7 @@ export default function Home() {
       <section className="py-24 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold italic tracking-tight">The <span className="text-[#ff37d7]">Roster</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold italic tracking-tight">Upcoming <span className="text-[#ff37d7]">GIGS</span></h2>
             <div className="hidden md:flex gap-4">
                {/* Could add filter tabs here */}
             </div>
